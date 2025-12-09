@@ -53,4 +53,10 @@ pip install -r requirements.txt
 python utils/import_csv.py --path="dataset.csv" --drop
 # Start server (default: http://localhost:4000)
 python app.py
+
+#output here frontend + backend 
+
 ![image alt](https://github.com/tarnuN/truEstate_front/blob/main/Screenshot%202025-12-09%20102818.png?raw=true)
+
+#output this screenshot applying filter who are males are there
+![image alt]()
