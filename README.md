@@ -39,3 +39,17 @@ API response includes total item count and total pages so frontend can render ne
    ```bash
    git clone <your-repo-url>
    cd <repo-folder>
+
+   Backend (Flask)
+
+cd backend
+python -m venv venv
+# Windows
+venv\Scripts\activate
+# mac/linux
+source venv/bin/activate
+pip install -r requirements.txt
+# Import dataset (place dataset.csv at backend/ or provide full path)
+python utils/import_csv.py --path="dataset.csv" --drop
+# Start server (default: http://localhost:4000)
+python app.py
