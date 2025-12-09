@@ -11,12 +11,12 @@ function normalize(params = {}) {
 
 export async function getSales(params = {}) {
   const query = new URLSearchParams(normalize(params)).toString();
-  const res = await fetch(`${BASE_URL}/sales?${query}`);
+  const res = await fetch(`${BASE_URL}/api/sales?${query}`); // add /api
   return res.json();
 }
 
 export async function getStats(params = {}) {
   const query = new URLSearchParams(normalize(params)).toString();
-  const res = await fetch(`${BASE_URL}/stats?${query}`);
+  const res = await fetch(`${BASE_URL}/api/stats?${query}`);
   return res.json();
 }

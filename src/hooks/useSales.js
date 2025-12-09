@@ -6,7 +6,8 @@ export default function useSales(filters) {
   const [loading, setLoading] = useState(false);
   const [pageInfo, setPageInfo] = useState({
     page: 1,
-    totalPages: 1
+    pageSize: 10,
+    total: 0,
   });
 
   const fetch = async () => {
@@ -17,20 +18,33 @@ export default function useSales(filters) {
       sortBy: filters.sort || "date",
       sortOrder: filters.sortOrder || "desc",
       page: pageInfo.page,
+      limit: pageInfo.pageSize,
+      customer_region: filters.region?.join(",") || "",
+      product_category: filters.category?.join(",") || "",
+      gender: filters.gender?.join(",") || "",
+      payment_method: filters.payment?.join(",") || "",
+      tags: filters.tags?.join(",") || "",
+      date: filters.date || "",
     };
 
     const resp = await getSales(params);
-    setData(resp.data);
-    setPageInfo({
+
+    setData(resp.data || []);
+    setPageInfo((prev) => ({
+      ...prev,
       page: resp.page,
-      totalPages: resp.totalPages
-    });
+      total: resp.total,        // total rows in DB after applying filters
+    }));
+
     setLoading(false);
   };
 
   useEffect(() => {
     fetch();
-  }, [filters, pageInfo.page]);
+  }, [
+    filters,            // run when filters change
+    pageInfo.page       // run when page changes
+  ]);
 
   return { data, loading, pageInfo, setPageInfo };
 }

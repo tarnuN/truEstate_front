@@ -21,7 +21,7 @@ export default function TransactionsTable({ rows = [], loading = false }) {
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500">Transaction ID</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500">Date</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500">Customer ID</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500">Customer name</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500">Customer Name</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500">Phone Number</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500">Gender</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500">Age</th>
@@ -30,30 +30,30 @@ export default function TransactionsTable({ rows = [], loading = false }) {
 
                 {/* right side columns */}
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500">Total Amount</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500">Customer region</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500">Customer Region</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500">Product ID</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500">Employee name</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500">Employee Name</th>
               </tr>
             </thead>
 
             <tbody className="bg-white divide-y divide-gray-100">
               {rows.map((r, idx) => (
-                <tr key={r.id ?? idx} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 text-sm text-gray-700">{r.transactionId}</td>
+                <tr key={r.transaction_id ?? idx} className="hover:bg-gray-50">
+                  <td className="px-4 py-3 text-sm text-gray-700">{r.transaction_id}</td>
                   <td className="px-4 py-3 text-sm text-gray-700">{r.date}</td>
-                  <td className="px-4 py-3 text-sm text-gray-700">{r.customerId}</td>
-                  <td className="px-4 py-3 text-sm text-gray-700">{r.customerName}</td>
-                  <td className="px-4 py-3 text-sm text-gray-700">{r.phone}</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">{r.customer_id}</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">{r.customer_name}</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">{r.phone_number}</td>
                   <td className="px-4 py-3 text-sm text-gray-700">{r.gender}</td>
                   <td className="px-4 py-3 text-sm text-gray-700">{r.age}</td>
-                  <td className="px-4 py-3 text-sm text-gray-700">{r.category}</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">{r.product_category}</td>
                   <td className="px-4 py-3 text-sm text-gray-700">{r.quantity}</td>
 
                   {/* right side columns */}
-                  <td className="px-4 py-3 text-sm text-gray-700">₹ {r.totalAmount ?? "1,000"}</td>
-                  <td className="px-4 py-3 text-sm text-gray-700">{r.region ?? "South"}</td>
-                  <td className="px-4 py-3 text-sm text-gray-700">{r.productId ?? "PROD0001"}</td>
-                  <td className="px-4 py-3 text-sm text-gray-700">{r.employeeName ?? "Harsh Agrawal"}</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">₹ {r.final_amount}</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">{r.customer_region}</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">{r.product_id}</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">{r.employee_name}</td>
                 </tr>
               ))}
             </tbody>

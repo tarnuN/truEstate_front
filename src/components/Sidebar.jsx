@@ -59,7 +59,7 @@ export default function Sidebar() {
           V
         </div>
         <div className="flex-1">
-          <div className="text-sm font-semibold text-gray-800">Vault</div>
+          <div className="text-sm font-semibold text-gray-800">TruEstate</div>
           <div className="text-xs text-gray-500">Tarun Naik</div>
         </div>
         <div className="text-gray-400"><FaChevronDown /></div>
