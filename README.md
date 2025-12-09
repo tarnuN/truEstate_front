@@ -1,16 +1,41 @@
-# React + Vite
+# TruEstate — Sales Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 1. Overview
+TruEstate is a Sales Management System that provides a searchable, filterable, sortable, and paginated view over a structured sales dataset. The backend is implemented in Flask with SQLAlchemy and exposes a `/api/sales` endpoint; the frontend is a React + Tailwind app that consumes the API and renders a dashboard with filters, stat cards and a transactions table.
 
-Currently, two official plugins are available:
+## 2. Tech Stack
+- Backend: Python, Flask, SQLAlchemy, pandas (CSV importer)
+- Frontend: React, Vite, Tailwind CSS, Axios
+- Database: SQLite (default; instructions include how to switch to MySQL/Postgres)
+- Dev tools: Git, pip, Node.js, npm
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 3. Search Implementation Summary
+Full-text, case-insensitive search is implemented on `customer_name` and `phone_number`. The backend accepts a `q` query parameter and applies a SQL `ILIKE '%q%'` filter for both columns; results are combined with OR so either field matches.
 
-## React Compiler
+## 4. Filter Implementation Summary
+Backend supports multi-select and range filters via query parameters:
+- Multi-select (comma-separated or repeated params): `regions`, `genders`, `categories`, `payment_method`
+- Range: `ageMin`, `ageMax`
+- Date range: `dateFrom`, `dateTo` (ISO format)
+- Tags: comma-separated `tags` parameter (matches any tag using `ILIKE`)
+Filters can be used independently or in combination and are applied conjunctively (AND) to narrow results.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 5. Sorting Implementation Summary
+Sorting is implemented by an `ordering` or `sort` parameter:
+- `ordering=-date` or `sort=date_desc` → Date (newest first)
+- `ordering=date` or `sort=date_asc` → Date (oldest first)
+- `ordering=quantity` or `sort=quantity` → Quantity
+- `ordering=customer_name` or `sort=name` → Customer name A→Z  
+Sorting respects existing search and filter params.
 
-## Expanding the ESLint configuration
+## 6. Pagination Implementation Summary
+Server-side pagination uses page-number pagination with a default page size of 10. Query params:
+- `page` (1-based index)
+- `page_size` (optional override)
+API response includes total item count and total pages so frontend can render next/previous and page controls.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 7. Setup Instructions
+1. Clone repository:
+   ```bash
+   git clone <your-repo-url>
+   cd <repo-folder>
